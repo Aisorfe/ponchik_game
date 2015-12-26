@@ -22,7 +22,7 @@ function initSprites(img) {
     s_bg.color = "#2f2f2f";
     s_bg.pos = 0;
 
-    s_dog = new Sprite(img, 0, 0, 73, 49);
+    s_dog = new Sprite(img, 0, 0, 73, 50);
 
     s_donuts = [
         new Sprite(img, 75, 2, 18, 18),
@@ -47,5 +47,35 @@ function initSprites(img) {
         new Sprite(img, 219, 2, 6, 10),
         new Sprite(img, 227, 2, 6, 10),
         new Sprite(img, 235, 2, 6, 10),
-    ]
+    ];
+
+    s_alphabet = {
+        "a": new Sprite(img, 175, 14, 6, 10),
+        "b": new Sprite(img, 183, 14, 6, 10),
+        "c": new Sprite(img, 191, 14, 6, 10),
+        "d": new Sprite(img, 199, 14, 6, 10),
+        "e": new Sprite(img, 207, 14, 6, 10),
+        "f": new Sprite(img, 215, 14, 6, 10),
+        "g": new Sprite(img, 223, 14, 6, 10),
+        "h": new Sprite(img, 231, 14, 6, 10),
+        "i": new Sprite(img, 239, 14, 6, 10),
+        "j": new Sprite(img, 247, 14, 6, 10),
+        "k": new Sprite(img, 255, 14, 6, 10),
+        "l": new Sprite(img, 263, 14, 6, 10),
+        "m": new Sprite(img, 271, 14, 6, 10),
+        "n": new Sprite(img, 279, 14, 6, 10),
+        "o": new Sprite(img, 287, 14, 6, 10),
+        "p": new Sprite(img, 295, 14, 6, 10),
+        "q": new Sprite(img, 303, 14, 6, 10),
+        "r": new Sprite(img, 311, 14, 6, 10),
+        "s": new Sprite(img, 319, 14, 6, 10),
+        "t": new Sprite(img, 327, 14, 6, 10),
+        "u": new Sprite(img, 335, 14, 6, 10),
+        "v": new Sprite(img, 343, 14, 6, 10),
+        "w": new Sprite(img, 351, 14, 6, 10),
+        "x": new Sprite(img, 359, 14, 6, 10),
+        "y": new Sprite(img, 367, 14, 6, 10),
+        "z": new Sprite(img, 375, 14, 6, 10),
+        " ": new Sprite(img, 383, 14, 6, 10)
+    };
 }

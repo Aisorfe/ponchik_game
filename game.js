@@ -7,14 +7,13 @@ height,
 
 frames = 0,
 bg_speed = 2,
-donut_interval = 50,
 score = 0,
 
 states = {
 
     "splash": 0,
     "game": 1,
-    "game_over": 3
+    "game_over": 2,
 
 },
 
@@ -43,7 +42,7 @@ function main() {
     document.body.appendChild(canvas);
 
     var img = new Image();
-    img.src = "res/my_sprite.png";
+    img.src = "res/sheet.png";
 
     img.onload = function() {
 
@@ -88,6 +87,7 @@ function render() {
     if (current_state == states["game_over"]) game_over();
 
     else {
+
         ctx.fillRect(0, 0, width, height);
 
         s_bg.draw(ctx, -s_bg.pos, 0);
@@ -97,13 +97,16 @@ function render() {
 
         donuts.draw(ctx);
 
-        lifes.draw();
+        lifes.draw(ctx);
 
-        str_score = score.toString();
+        show_score(ctx);
 
-        for (var i = 0; i < str_score.length; i++) {
-            s_nums[str_score[i]].draw(ctx, 20 + i * 8, height - 20);
+        if (current_state == states["splash"]) {
+
+            show_splash_screen(ctx);
+
         }
+
     }
 
 }
@@ -114,6 +117,7 @@ function on_press(evt) {
 
         case states["splash"]:
             current_state = states["game"];
+            dog.is_floating = false;
             dog.jump();
             break;
 
@@ -141,6 +145,41 @@ function game_over() {
 function get_random_int(min, max) {
 
     return Math.floor(Math.random() * (max - min + 1)) + min;
+
+}
+
+function get_random_array_element(array) {
+
+    return array[get_random_int(0, array.length - 1)];
+
+}
+
+function show_score(ctx) {
+
+    var str_score = score.toString();
+
+    print_word(ctx, "score", 10, height - 20);
+
+    for (var i = 0; i < str_score.length; i++) {
+        s_nums[str_score[i]].draw(ctx, 58 + i * 8, height - 20);
+    }
+
+}
+
+function print_word(ctx, word, x, y) {
+
+    for (var i = 0; i < word.length; i++) {
+        s_alphabet[word[i]].draw(ctx, x + i * 8, y);
+    }
+
+}
+
+function show_splash_screen(ctx) {
+
+    ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
+    ctx.fillRect(0, 0, width, height);
+
+    print_word(ctx, "click to play", width / 2 - 60, height / 2 - s_alphabet[" "].height / 2);
 
 }
 
