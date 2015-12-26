@@ -113,6 +113,7 @@ function on_press(evt) {
 
         case states["game_over"]:
             lifes.amount = 3;
+            score = 0;
             current_state = states["splash"];
             break;
 
@@ -130,6 +131,15 @@ function game_over() {
 function get_random_int(min, max) {
 
     return Math.floor(Math.random() * (max - min + 1)) + min;
+
+}
+
+function Rectangle(x, y, w, h) {
+
+    this.x = x;
+    this.y = y;
+    this.width = w;
+    this.height = h;
 
 }
 

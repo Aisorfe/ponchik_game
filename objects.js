@@ -43,7 +43,12 @@ donuts = {
                 x: width,
                 y: get_random_int(0, height - s_donuts[0].width),
                 speed: get_random_int(this.speed_range[0], this.speed_range[1]),
-                s_num: get_random_int(0, s_donuts.length - 1)
+                s_num: get_random_int(0, s_donuts.length - 1),
+                is_eaten: false,
+
+                get_center_pos: function() {
+                    return [this.x + s_donuts[0].width / 2, this.y + s_donuts[0].height / 2];
+                }
             };
 
         }
@@ -51,7 +56,15 @@ donuts = {
         for (var i = 0; i < this.list.length; i++) {
             this.list[i].x -= this.list[i].speed;
 
-            if (this.list[i].x < -s_donuts[0].width) this.list.splice(i, 1);
+            if ( (this.list[i].x < -s_donuts[0].width) || (this.list[i].is_eaten) ) this.list.splice(i, 1);
+
+            var dog_rect = dog.get_rect();
+
+            if ( (this.list[i].x + s_donuts[0].width < dog_rect.x + s_dog.width) && (this.list[i].y > dog_rect.y) && (this.list[i].y < dog_rect.y + dog_rect.height) ) {
+                this.list[i].is_eaten = true;
+                score++;
+                console.log(score);
+            }
         }
 
     },
@@ -83,6 +96,12 @@ dog = {
     rotation_max_angle_up: 0.2,
     is_beyond: false,
 
+    get_rect: function() {
+
+        return new Rectangle(this.x - s_dog.width / 2, this.y - 8, s_dog.width - 1, s_dog.height / 2);
+
+    },
+
     jump: function() {
 
         this.velocity = -this.jump_height;
@@ -110,6 +129,8 @@ dog = {
     },
 
     draw: function(ctx) {
+
+        var rect = this.get_rect();
 
         ctx.save();
         ctx.translate(this.x, this.y);
