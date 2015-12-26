@@ -46,9 +46,13 @@ function main() {
     img.src = "res/my_sprite.png";
 
     img.onload = function() {
+
         initSprites(this);
         ctx.fillStyle = s_bg.color;
+        dog.x = width * 0.1;
+
         run();
+
     }
 
 }
@@ -94,6 +98,12 @@ function render() {
         donuts.draw(ctx);
 
         lifes.draw();
+
+        str_score = score.toString();
+
+        for (var i = 0; i < str_score.length; i++) {
+            s_nums[str_score[i]].draw(ctx, 20 + i * 8, height - 20);
+        }
     }
 
 }

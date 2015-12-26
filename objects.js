@@ -33,7 +33,7 @@ donuts = {
     list: [],
 
     interval: 50,
-    speed_range: [1, 4],
+    speed_range: [1, 8],
 
     update: function() {
 
@@ -51,6 +51,8 @@ donuts = {
                 }
             };
 
+            console.log(this.list);
+
         }
 
         for (var i = 0; i < this.list.length; i++) {
@@ -60,10 +62,9 @@ donuts = {
 
             var dog_rect = dog.get_rect();
 
-            if ( (this.list[i].x + s_donuts[0].width < dog_rect.x + s_dog.width) && (this.list[i].y > dog_rect.y) && (this.list[i].y < dog_rect.y + dog_rect.height) ) {
+            if ( (this.list[i].x + s_donuts[0].width < dog_rect.x + s_dog.width) && (this.list[i].x > dog_rect.x) && (this.list[i].y > dog_rect.y) && (this.list[i].y < dog_rect.y + dog_rect.height) ) {
                 this.list[i].is_eaten = true;
-                score++;
-                console.log(score);
+                score += this.list[i].speed;
             }
         }
 
@@ -82,7 +83,7 @@ donuts = {
 
 dog = {
 
-    x: 80,
+    x: 0,
     y: 0,
     velocity: 0,
     jump_height: 6,
@@ -98,7 +99,7 @@ dog = {
 
     get_rect: function() {
 
-        return new Rectangle(this.x - s_dog.width / 2, this.y - 8, s_dog.width - 1, s_dog.height / 2);
+        return new Rectangle(this.x, this.y + 10, s_dog.width, s_dog.height - 10);
 
     },
 
@@ -111,9 +112,12 @@ dog = {
     update: function() {
 
         if (current_state == states["splash"]) {
-            this.y = height / 2 + this.swing_range * Math.cos(frames / this.swing_speed);
+
+            this.y = height / 2 - s_dog.width / 2 + this.swing_range * Math.cos(frames / this.swing_speed);
             this.rotation = 0;
+
         } else {
+
             this.velocity += this.gravity;
             this.y += this.velocity;
 
@@ -124,6 +128,7 @@ dog = {
             if (this.velocity >= this.jump_height)
                 this.rotation = Math.min(this.rotation_max_angle_down, this.rotation + this.rotation_speed);
             else this.rotation = -this.rotation_max_angle_up;
+
         }
 
     },
@@ -136,7 +141,7 @@ dog = {
         ctx.translate(this.x, this.y);
         ctx.rotate(this.rotation);
 
-        s_dog.draw(ctx, -s_dog.width / 2, -s_dog.height / 2);
+        s_dog.draw(ctx, 0, 0);
 
         ctx.restore();
 
